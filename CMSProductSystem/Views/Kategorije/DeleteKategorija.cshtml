@@ -1,0 +1,20 @@
+﻿@using System.Web
+@model CMSProductSystem.Models.Kategorija
+
+@{
+    ViewData["Title"] = "Detalji kategorije";
+}
+<h5 class="alert alert-info detailsproizvod">Jeste li sigurni da želite obrisati kategoriju "@Model.Naziv?"</h5>
+<div class="card-group detailsproizvod">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Naziv kategorije</h5>
+      <p class="card-text">@Html.DisplayFor(model => model.Naziv)</p>
+  </div>
+  </div>
+  </div>
+
+  <div>
+      @Html.ActionLink(HttpUtility.HtmlDecode("&#x2715; Briši"), "DeleteKategorijaConfirm", new {  id=Model.ID }, new {@class = "btn btn-danger btnakcija" })
+                      <a href="..\Proizvodi" class = "btn btn-info btnakcija">&#x2691; Odustani</a>
+  </div>

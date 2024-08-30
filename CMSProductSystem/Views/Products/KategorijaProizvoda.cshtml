@@ -1,0 +1,91 @@
+﻿@using System.Web
+@model IEnumerable<CMSProductSystem.Models.ProizvodiKategorije>
+
+@{
+    ViewData["Title"] = "Detalji proizvoda";
+}
+
+<h5 class="alert alert-info detailsproizvod">Odaberite kategoriju:</h5>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="KategorijaProizvoda" enctype="multipart/form-data">           
+            <div class="form-group razmak">
+                <label class="control-label">Kategorija:</label>
+                <select  class="form-control" id="CategoryID" name="CategoryID" asp-items="@ViewBag.KategorijaPopis"></select>
+            </div>
+@*             <div class="form-group">
+                <input type="submit" value="Prikaži" class="btn btn-primary" />
+            </div> *@
+        </form>
+    </div>
+</div>
+
+<table class="table tablicauserifont table-striped" id="productTableBody">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProizvodPodaci.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProizvodPodaci.Naziv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProizvodPodaci.Opis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NazivKategorije)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.ProizvodPodaci.Slika)
+            </th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProizvodPodaci.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProizvodPodaci.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProizvodPodaci.Opis)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NazivKategorije)
+                </td> 
+                <td>
+                    <img class="slikaokvir"  src="/@item.ProizvodPodaci.Slika" width="158" height="83" />
+                </td>                  
+                <td>
+                     @Html.ActionLink(HttpUtility.HtmlDecode("&#x270E; Ažuriraj"), "EditProizvod", new {  id=item.ProizvodPodaci.ID }, new {@class = "btn btn-primary btnakcija" })
+                    @Html.ActionLink(HttpUtility.HtmlDecode("&#x26B2; Pogledaj"), "DetailsProizvod", new {  id=item.ProizvodPodaci.ID }, new {@class = "btn btn-info btnakcija" })
+                    @Html.ActionLink(HttpUtility.HtmlDecode("&#x2715; Briši"), "DeleteProizvod", new {  id=item.ProizvodPodaci.ID }, new {@class = "btn btn-danger btnakcija" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+  <div>
+      <p style="margin-top: 10px;"><a href="javascript:history.back(-1)" class = "btn btn-warning btnprikaz">Natrag</a></p>
+  </div>
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#CategoryID').change(function () {
+                var selectedCategoryId = $(this).val();
+                var url = '@Url.Action("KategorijaProizvoda", "Products")?CategoryID=' + selectedCategoryId;
+
+                $.get(url, function (data) {
+                    $('#productTableBody').html(data);
+                });
+            });
+        });
+    </script>
+}

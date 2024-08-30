@@ -1,0 +1,123 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using System.Web
+@model IEnumerable<ApplicationUser>
+@{
+    ViewData["Title"] = "Popis korisnika";
+    string klasa = "";
+}
+
+<h1 class="alert alert-info">Popis korisnika</h1>
+
+<p>
+    @if (TempData["poruka"] != null)
+    {
+        <p class="btn btn-success">@TempData["poruka"]</p>
+    }
+</p>
+
+@if (Model.Any())
+{
+    <table class="table tablicauserifont table-striped">
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Ime i prezime
+            </th>
+            <th>
+                Naziv usera
+            </th>
+            <th>
+                Email usera
+            </th>
+            <th>
+                Zanimanje
+            </th>
+             <th>
+                Grad
+            </th>
+             <th>
+                Adresa
+            </th>
+             <th>
+                Status
+            </th>
+            <th>
+                Zadnje ažuriranje
+            </th>
+            <th>
+                Akcija 
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                 <td>@item.FirstName @item.LastName</td> 
+                <td>@item.UserName</td>
+                <td>@item.Email</td>
+                <td>@item.Zanimanje</td>
+                <td>@item.Grad</td>
+                <td>@item.Adresa</td>
+                <td>@if (item.Aktivan == 1)
+                    {
+                        <text>Aktivan</text>
+                    }
+                    else
+                    {
+                        <text>Neaktivan</text>
+                    }
+                </td>
+                <td>@item.LastUpdated</td>
+                <td>
+                   
+                    @*<button type="button" class="btn btn-primary btnakcija">&#x270E; Ažuriraj</button>*@
+                    @Html.ActionLink(HttpUtility.HtmlDecode("&#x270E; Ažuriraj"), "EditUser", new {  id=item.Id }, new {@class = "btn btn-primary btnakcija" })
+                    @Html.ActionLink(HttpUtility.HtmlDecode("&#x26B2; Pogledaj"), "ViewUserDetails", new {  id=item.Id }, new {@class = "btn btn-info btnakcija" })
+                    @Html.ActionLink(HttpUtility.HtmlDecode("&#x2715; Briši"), "DeleteUserDetails", new {  id=item.Id }, new {@class = "btn btn-danger btnakcija" })
+                </td>
+            </tr>
+        }
+    </table>
+
+    <p><a href="Register" class = "btn btn-warning btnprikaz">&#x2719; Novi korisnik</a></p>
+}
+else
+{
+    <div class="card">
+        Nema još nikakvih korisnika u sustavu!
+    </div>
+}  
+<div class="pagination">
+
+    @if(ViewBag.Aktivna != 1)
+    {
+        ViewBag.Prethodna = ViewBag.Aktivna - 1;
+        @Html.ActionLink(HttpUtility.HtmlDecode("&laquo;"), "PopisUsera", new {  page=ViewBag.Prethodna }, new {@class=@klasa}) 
+    }
+      
+    @for (int str = 1; str <= @ViewBag.BrojStranica; str++)
+    {
+        if (ViewBag.Aktivna == str)
+        {
+            klasa = "active";
+        }
+        else
+        {
+            klasa = "";
+        }
+        ViewBag.Stranica = str;
+        @Html.ActionLink("  "+@str+"  ", "PopisUsera", new {  page=str }, new {@class=@klasa})
+        @Html.Label(" ")
+        
+    }
+
+    
+
+    @if(ViewBag.Aktivna < ViewBag.Stranica)
+    {
+        ViewBag.Sljedeca = ViewBag.Aktivna + 1;
+        @Html.ActionLink(HttpUtility.HtmlDecode("&raquo;"), "PopisUsera", new {  page=ViewBag.Sljedeca }, new {@class=@klasa}) 
+    }
+</div>

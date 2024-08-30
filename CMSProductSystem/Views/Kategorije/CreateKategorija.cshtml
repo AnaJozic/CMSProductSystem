@@ -1,0 +1,33 @@
+﻿@model CMSProductSystem.Models.Kategorija
+
+@{
+    ViewData["Title"] = "Kreiranje kategorije";
+}
+
+<h1 class="alert alert-info">Unos novih kategorija</h1>
+
+<h4 class="alert alert-warning">Unesite podatke o kategoriji:</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateKategorija" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group razmak">
+                <label asp-for="Naziv" class="control-label"></label>
+                <input asp-for="Naziv" class="form-control" />
+                <span asp-validation-for="Naziv" class="text-danger"></span>
+            </div>           
+            <div class="form-group razmak">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <p><a href="javascript:history.back(-1)" class = "btn btn-warning btnprikaz">Natrag</a></p>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

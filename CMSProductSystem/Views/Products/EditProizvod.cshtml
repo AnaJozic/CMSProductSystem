@@ -1,0 +1,70 @@
+﻿@model CMSProductSystem.Models.Proizvod
+
+@{
+    ViewData["Title"] = "Ažuriranje proizvoda";
+}
+
+<h1 class="alert alert-info">Ažuriranje proizvoda</h1>
+
+<h4 class="alert alert-warning">Promjenite podatke o proizvodu:</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditProizvod" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group razmak">
+                <label asp-for="ID" class="control-label"></label>
+                <input asp-for="ID" class="form-control" readonly="readonly" />
+                <span asp-validation-for="ID" class="text-danger"></span>
+            </div>
+            <div class="form-group razmak">
+                <label asp-for="Naziv" class="control-label"></label>
+                <input asp-for="Naziv" class="form-control" />
+                <span asp-validation-for="Naziv" class="text-danger"></span>
+            </div>
+            <div class="form-group razmak">
+                <label asp-for="Opis" class="control-label"></label>
+                <textarea asp-for="Opis" class="form-control" cols="30" rows="7"></textarea>
+                <span asp-validation-for="Opis" class="text-danger"></span>
+            </div>
+            <div class="form-group razmak">
+                <label asp-for="Kolicina" class="control-label"></label>
+                <input asp-for="Kolicina" class="form-control" />
+                <span asp-validation-for="Kolicina" class="text-danger"></span>
+            </div>
+            <div class="form-group razmak">
+                <label asp-for="Cijena" class="control-label"></label>
+                <input asp-for="Cijena" class="form-control"  data-val="false"/>
+                <span asp-validation-for="Cijena" class="text-danger"></span>
+            </div>
+            <div class="d-none">
+                <label asp-for="Slika" class="control-label"></label>
+                <input asp-for="Slika" class="form-control"  data-val="false"/>
+                <span asp-validation-for="Slika" class="text-danger"></span>
+            </div>
+            <div class="form-group razmak">
+                
+                <label asp-for="SlikaOdb" class="control-label"></label>
+                <br /><img src="/@Url.Content(Model.Slika)" class="card-img-top prikazproizvodedit" alt="...">
+                <input asp-for="SlikaOdb" class="form-control"/>
+                <span asp-validation-for="SlikaOdb" class="text-danger"></span>
+            </div>
+            <div class="form-group razmak">
+                <label asp-for="CategoryID" class="control-label"></label>
+                <select asp-for="CategoryID" class="form-control" asp-items="Model.KategorijaLista"></select>
+                <span asp-validation-for="CategoryID" class="text-danger"></span>
+            </div>
+            <div class="form-group razmak">
+                <input type="submit" value="Ažuriraj" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <p><a href="javascript:history.back(-1)" class = "btn btn-warning btnprikaz">Natrag</a></p>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

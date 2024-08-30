@@ -1,0 +1,27 @@
+﻿@using System.Web
+@model CMSProductSystem.Models.Proizvod
+
+@{
+    ViewData["Title"] = "Detalji proizvoda";
+}
+<h5 class="alert alert-info detailsproizvod">Jeste li sigurni da želite obrisati proizvod "@Model.Naziv?"</h5>
+<div class="card-group detailsproizvod">
+  <div class="card">
+    <img src="/@Url.Content(Model.Slika)" class="card-img-top prikazproizvodi" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Naziv proizvoda</h5>
+      <p class="card-text">@Html.DisplayFor(model => model.Naziv)</p>
+    <h5 class="card-title">Opis proizvoda</h5>
+      <p class="card-text">@Html.DisplayFor(model => model.Opis)</p>
+   <h5 class="card-title">Količina</h5>
+      <p class="card-text">@Html.DisplayFor(model => model.Kolicina)</p>
+       <h5 class="card-title">Cijena</h5>
+      <p class="card-text">@Html.DisplayFor(model => model.Cijena) €</p>
+  </div>
+  </div>
+  </div>
+
+  <div>
+      @Html.ActionLink(HttpUtility.HtmlDecode("&#x2715; Briši"), "DeleteProizvodConfirm", new {  id=Model.ID }, new {@class = "btn btn-danger btnakcija" })
+                      <a href="..\Proizvodi" class = "btn btn-info btnakcija">&#x2691; Odustani</a>
+  </div>

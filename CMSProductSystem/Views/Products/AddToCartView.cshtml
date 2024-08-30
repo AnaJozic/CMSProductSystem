@@ -1,0 +1,33 @@
+﻿@model CMSProductSystem.Models.AddToCartModel
+@{
+    ViewData["Title"] = "Add to Cart";
+}
+
+<h4>Add to Cart</h4>
+
+
+<div class="row">
+    <div class="col-md-4">
+<form method="post" action="@Url.Action("AddToCart", "Products")">
+             <div class="form-group razmak">
+                <label class="control-label">Product id:</label>
+                <label class="control-label"><input type="text" class="cartdetailsinput" name="productId" value="@Model.ProductId" readonly /></label>
+            </div>
+            <div class="form-group razmak">
+                <label class="control-label">Product name:</label>
+                <label class="control-label"><input type="text" class="cartdetailsinput" name="productName" value="@Model.ProductName" readonly /></label>
+            </div>
+            <div class="form-group razmak">
+                <label class="control-label">Product price:</label>
+                <label class="control-label"><input type="text" class="cartdetailsinput" name="productPrice" value="@Model.ProductPrice" readonly /></label>
+            </div>
+
+            <div class="form-group razmak">
+        <label for="quantity">Quantity:</label>
+                <input type="number" name="quantity" class="form-control qtysize" required />
+    </div>
+
+    <button type="submit" class="btn btn-success">Add to Cart</button>
+</form>
+</div>
+</div>

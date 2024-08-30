@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using System.Web
+@model IEnumerable<IdentityRole>
+@{
+    ViewData["Title"] = "Popis rola";
+}
+
+<h1 class="alert alert-info">Popis svih rola</h1>
+
+
+
+@if (Model.Any())
+{
+    <table class="table tablicauserifont table-striped">
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Ime role
+            </th>
+            <th>
+                Akcija
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@Html.ActionLink(HttpUtility.HtmlDecode("&#x270E; Ažuriraj"), "EditRole", new { id = item.Id }, new { @class = "btn btn-primary btnakcija" })</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div class="card">
+        Ne postoji nijedna rola još.
+    </div>
+}
+<p><a href="CreateRole" class="btn btn-warning btnprikaz">&#x2719; Nova rola</a></p>

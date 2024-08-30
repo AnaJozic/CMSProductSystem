@@ -1,0 +1,28 @@
+﻿@model CMSProductSystem.Models.ProizvodiKategorije
+
+@{
+    ViewData["Title"] = "Detalji proizvoda";
+}
+<h5 class="alert alert-info detailsproizvod">Gledate detalje proizvoda "@Model.ProizvodPodaci.Naziv:"</h5>
+<div class="card-group detailsproizvod">
+  <div class="card carddetails">
+    <img src="/@Url.Content(Model.ProizvodPodaci.Slika)" class="card-img-top prikazproizvodi" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Naziv proizvoda</h5>
+      <p class="card-text">@Html.DisplayFor(model => model.ProizvodPodaci.Naziv)</p>
+    <h5 class="card-title">Opis proizvoda</h5>
+      <p class="card-text">@Html.DisplayFor(model => model.ProizvodPodaci.Opis)</p>
+   <h5 class="card-title">Količina</h5>
+      <p class="card-text">@Html.DisplayFor(model => model.ProizvodPodaci.Kolicina)</p>
+       <h5 class="card-title">Cijena</h5>
+      <p class="card-text">@Html.DisplayFor(model => model.ProizvodPodaci.Cijena) €</p>
+  </div>
+    <div class="card-footer">
+      <small class="text-muted">Kategorija: @Html.DisplayFor(model => model.NazivKategorije)</small>
+    </div>
+  </div>
+  </div>
+
+  <div>
+      <p><a href="javascript:history.back(-1)" class = "btn btn-warning btnprikaz">Natrag</a></p>
+  </div>

@@ -1,0 +1,28 @@
+﻿@model CMSProductSystem.Models.CreateRoleViewModel
+
+@{
+    ViewData["Title"] = "Kreiranje nove role";
+}
+
+<h1 class="alert alert-info">Kreiranje role</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateRole">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group razmak">
+                <label asp-for="RoleName" class="control-label">Upišite naziv role</label>
+                <input asp-for="RoleName" class="form-control" />
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+            </div>
+            <div class="form-group razmak">
+                <input type="submit" value="Kreiraj" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="alert alert-warning">
+    <a asp-action="PopisRola">Povratak na listu rola</a>
+</div>
+

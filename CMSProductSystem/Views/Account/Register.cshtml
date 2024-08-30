@@ -1,0 +1,74 @@
+﻿@model CMSProductSystem.Models.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1 class="alert alert-info">Stramica za registraciju novih članova</h1>
+
+<h4 class="alert alert-warning">Registracija korisnika</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Register">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group razmak">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group razmak">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group razmak">
+                <label asp-for="Adresa" class="control-label"></label>
+                <input asp-for="Adresa" class="form-control" />
+                <span asp-validation-for="Adresa" class="text-danger"></span>
+            </div>
+            <div class="form-group razmak">
+                <label asp-for="Grad" class="control-label"></label>
+                <input asp-for="Grad" class="form-control" />
+                <span asp-validation-for="Grad" class="text-danger"></span>
+            </div>
+            <div class="form-group razmak">
+                <label asp-for="Telefon" class="control-label"></label>
+                <input asp-for="Telefon" class="form-control" />
+                <span asp-validation-for="Telefon" class="text-danger"></span>
+            </div>
+            <div class="form-group razmak">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" value="@Model.Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group razmak">
+                <label asp-for="Zanimanje" class="control-label"></label>
+                <input asp-for="Zanimanje" class="form-control" value="@Model.Zanimanje" />
+                <span asp-validation-for="Zanimanje" class="text-danger"></span>
+            </div>
+            <div class="form-group razmak">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group razmak">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group razmak">
+                <label>Aktivnost:</label>
+                <select asp-for="Aktivan" class="form-control" asp-items="Model.Aktivnosti"></select>
+                <span asp-validation-for="Aktivan" class="text-danger"></span>
+            </div>
+            <div class="form-group razmak">
+                <input type="submit" value="Registriraj" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

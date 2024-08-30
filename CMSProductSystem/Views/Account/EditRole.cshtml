@@ -1,0 +1,58 @@
+﻿@model CMSProductSystem.Models.EditRoleViewModel
+
+@{
+    ViewData["Title"] = "EditRole";
+}
+
+<h1  class="alert alert-info">Ažuriranje role</h1>
+
+<h4 class="alert alert-warning">Ažurirajte naziv role</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditRole">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group razmak">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" disabled="disabled"/>
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group razmak">
+                <label asp-for="RoleName" class="control-label">Naziv role</label>
+                <input asp-for="RoleName" class="form-control" />
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+            </div>
+            <div class="form-group razmak">
+                <input type="submit" value="Ažuriraj" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="cardrole">
+    <div class="card-header razmak">
+        <h3>Popis korisnika sa trenutnom rolom:</h3>
+    </div>
+    <div class="card-body">
+        @if (Model.Users.Any())
+        {
+            foreach (var user in Model.Users)
+            {
+                <h5 class="card-title">@user</h5>
+            }
+        }
+        else
+        {
+            <h5 class="card-title">Trenutno nema nijednog korisnika!</h5>
+        }
+    </div>
+
+    <div class="card-footer">
+        <a asp-action="EditUsersInRole" asp-controller="Account" asp-route-roleId="@Model.Id" class="btn btn-primary" style="width:auto">Dodaj ili ukloni user-e</a>
+    </div>
+</div>
+
+<div class="card-footer">
+    <a asp-action="PopisRola" class="btn btn-primary">Povratak na popis rola</a>
+</div>
+

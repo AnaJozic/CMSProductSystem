@@ -1,0 +1,143 @@
+﻿@using System.Web
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@model IEnumerable<CMSProductSystem.Models.ProizvodiKategorije>
+@{
+    ViewData["Title"] = "Popis proizvoda";
+    string klasa = "";
+}
+
+<h4 class="alert alert-info">Popis proizvoda</h4>
+
+<p>
+    @if (TempData["poruka"] != null)
+    {
+        <p class="btn btn-success">@TempData["poruka"]</p>
+    }
+</p>
+
+<div class="row">
+    <div class="col-md-4">
+        <label class="control-label">Pretraži proizvode:</label>
+        <input type="text" id="searchInput" class="form-control" placeholder="Unesite naziv, opis ili kategoriju" />
+    </div>
+    <div class="col-md-s">
+    <a href="@Url.Action("ShoppingCart", "Products")" class="btn btn-secondary btnshoppingcart"><i class="bi bi-cart"></i> Shopping Cart</a>
+    </div>
+</div>
+
+<table class="table tablicauserifont table-striped" id="productTableBody">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProizvodPodaci.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProizvodPodaci.Naziv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProizvodPodaci.Opis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProizvodPodaci.Cijena)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NazivKategorije)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.ProizvodPodaci.Slika)
+            </th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProizvodPodaci.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProizvodPodaci.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProizvodPodaci.Opis)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProizvodPodaci.Cijena)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NazivKategorije)
+                </td> 
+                <td>
+                    <img class="slikaokvir"  src="/@item.ProizvodPodaci.Slika" width="158" height="83" />
+                </td>                  
+                <td>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        if (User.IsInRole("Administratori"))
+                        {
+                          @Html.ActionLink(HttpUtility.HtmlDecode("&#x270E; Ažuriraj"), "EditProizvod", new {  id=item.ProizvodPodaci.ID }, new {@class = "btn btn-primary btnakcija" })
+                          <text>&nbsp;</text>
+                          @Html.ActionLink(HttpUtility.HtmlDecode("&#x2715; Briši"), "DeleteProizvod", new {  id=item.ProizvodPodaci.ID }, new {@class = "btn btn-danger btnakcija" })
+                          <text>&nbsp;</text>
+                        }                        
+                           @Html.ActionLink(HttpUtility.HtmlDecode("&#x26B2; Pogledaj"), "DetailsProizvod", new {  id=item.ProizvodPodaci.ID }, new {@class = "btn btn-info btnakcija" })
+                        <a href="@Url.Action("AddToCartView", "Products", new { id = item.ProizvodPodaci.ID, name = item.ProizvodPodaci.Naziv, price = item.ProizvodPodaci.Cijena })" class="btn btn-success btnakcija">Add to Cart</a>
+                        <!-- Add the shopping cart icon link -->
+                        
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<p><a href="CreateProizvod" class = "btn btn-warning btnprikaz">&#x2719; Novi proizvod</a></p>
+<div class="pagination">
+
+    @if(ViewBag.Aktivna != 1)
+    {
+        ViewBag.Prethodna = ViewBag.Aktivna - 1;
+        @Html.ActionLink(HttpUtility.HtmlDecode("&laquo;"), "Proizvodi", new {  page=ViewBag.Prethodna }, new {@class=@klasa}) 
+    }
+      
+    @for (int str = 1; str <= @ViewBag.BrojStranica; str++)
+    {
+        if (ViewBag.Aktivna == str)
+        {
+            klasa = "active";
+        }
+        else
+        {
+            klasa = "";
+        }
+        ViewBag.Stranica = str;
+        @Html.ActionLink("  "+@str+"  ", "Proizvodi", new {  page=str }, new {@class=@klasa})
+        @Html.Label(" ")
+        
+    }
+
+    
+
+    @if(ViewBag.Aktivna < ViewBag.Stranica)
+    {
+        ViewBag.Sljedeca = ViewBag.Aktivna + 1;
+        @Html.ActionLink(HttpUtility.HtmlDecode("&raquo;"), "Proizvodi", new {  page=ViewBag.Sljedeca }, new {@class=@klasa}) 
+    }
+</div>
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#searchInput').keyup(function () {
+                var searchTerm = $(this).val().toLowerCase();
+
+                $.get('@Url.Action("SearchProizvodi", "Products")', { searchTerm: searchTerm }, function (data) {
+                    $('#productTableBody').html(data);
+                });
+            });
+        });
+
+    </script>
+}

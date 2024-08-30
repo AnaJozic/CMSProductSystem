@@ -1,0 +1,23 @@
+ Volume in drive C is Windows
+ Volume Serial Number is C64A-7936
+
+ Directory of C:\Users\s30mikr\source\repos\CMSProductSystem\CMSProductSystem\wwwroot\images
+
+05.08.2023.  15:50    <DIR>          .
+05.08.2023.  15:50    <DIR>          ..
+05.08.2023.  15:27            15.297 37e30468-7565-4fef-b60b-1cd25386ff45_mrkva.jpg
+05.08.2023.  15:29            15.297 39955dd6-2e28-44f9-9339-3a338b970452_mrkva.jpg
+05.08.2023.  15:47             5.821 56bae301-adb9-40c4-b5b7-3fde819b6f2f_rasvjeta.jpg
+05.08.2023.  15:31             5.821 6087e209-1d3f-47f1-8b2f-8ba2aedf1348_rasvjeta.jpg
+05.08.2023.  15:17             8.251 8a4cb5ad-9a8a-47bb-9fdc-a87d768c113c_jabuka.jpg
+05.08.2023.  15:17            13.879 8a4cb5ad-9a8a-47bb-9fdc-a87d768c113c_krumpir.jpg
+05.08.2023.  15:17             9.413 8a4cb5ad-9a8a-47bb-9fdc-a87d768c113c_kruska.jpg
+05.08.2023.  15:17            14.761 8a4cb5ad-9a8a-47bb-9fdc-a87d768c113c_luk.jpg
+05.08.2023.  15:14           150.296 8a4cb5ad-9a8a-47bb-9fdc-a87d768c113c_orange.jpg
+05.08.2023.  15:49             5.821 da9b90a7-5a01-4724-a05d-5607523bf3f4_rasvjeta.jpg
+03.08.2023.  12:50            97.445 image01.jpg
+03.08.2023.  12:52             6.445 image02.jpg
+05.08.2023.  15:20             3.694 nophoto.jpg
+05.08.2023.  15:50                 0 popis.txt
+              14 File(s)        352.241 bytes
+               2 Dir(s)  234.772.963.328 bytes free

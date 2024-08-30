@@ -1,0 +1,71 @@
+﻿@model IEnumerable<CMSProductSystem.Models.ProizvodiKategorije>
+@using System.Web
+@using Microsoft.AspNetCore.Html
+
+<thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProizvodPodaci.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProizvodPodaci.Naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProizvodPodaci.Opis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NazivKategorije)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProizvodPodaci.Slika)
+        </th>
+        <th>Akcija</th>
+    </tr>
+</thead>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProizvodPodaci.ID)
+        </td>
+        <td>
+            @HighlightText(item.ProizvodPodaci.Naziv, ViewBag.SearchTerm)
+        </td>
+        <td>
+            @HighlightText(item.ProizvodPodaci.Opis, ViewBag.SearchTerm)
+        </td>
+        <td>
+            @HighlightText(item.NazivKategorije, ViewBag.SearchTerm)
+        </td>
+        <td>
+            <img class="slikaokvir" src="/@item.ProizvodPodaci.Slika" width="158" height="83" />
+        </td>
+        <td>
+            @Html.ActionLink(HttpUtility.HtmlDecode("&#x270E; Ažuriraj"), "EditProizvod", new { id = item.ProizvodPodaci.ID }, new { @class = "btn btn-primary btnakcija" })
+            @Html.ActionLink(HttpUtility.HtmlDecode("&#x26B2; Pogledaj"), "DetailsProizvod", new { id = item.ProizvodPodaci.ID }, new { @class = "btn btn-info btnakcija" })
+            @Html.ActionLink(HttpUtility.HtmlDecode("&#x2715; Briši"), "DeleteProizvod", new { id = item.ProizvodPodaci.ID }, new { @class = "btn btn-danger btnakcija" })
+        </td>
+    </tr>
+}
+
+@functions {
+    IHtmlContent HighlightText(string text, string searchTerm)
+    {
+        if (!string.IsNullOrEmpty(searchTerm) && !string.IsNullOrEmpty(text))
+        {
+            int index = text.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase);
+
+            if (index >= 0)
+            {
+                string highlightedText = text.Substring(0, index) +
+                                        "<span class='highlight'>" + text.Substring(index, searchTerm.Length) + "</span>" +
+                                        text.Substring(index + searchTerm.Length);
+
+                return new HtmlString(highlightedText);
+            }
+        }
+
+        return new HtmlString(text);
+    }
+}

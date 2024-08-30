@@ -1,0 +1,27 @@
+﻿@model IEnumerable<CMSProductSystem.Models.ProizvodiKategorije>
+@{
+    ViewData["Title"] = "Popis proizvoda u galeriji";
+    var brojac = 0;
+}
+@*<div class="card-group">*@
+    <h1 class="alert alert-info">Prikaz 10 nasumičnih proizvoda u galeriji</h1>
+ @foreach (var item in Model) {
+
+      <div class="card">
+        <img src="/@item.ProizvodPodaci.Slika" class="card-img-top prikazproizvodi" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Naziv</h5>
+          <p class="card-text">@Html.DisplayFor(modelItem => item.ProizvodPodaci.Naziv)</p>
+        <h5 class="card-title">Opis proizvoda</h5>
+          <p class="card-text">@Html.DisplayFor(modelItem => item.ProizvodPodaci.Opis)</p>
+       <h5 class="card-title">Detalji</h5>
+      <p class="card-text"> => @Html.ActionLink("Pogledaj", "DetailsProizvod", new {  id=item.ProizvodPodaci.ID  })</p>
+        </div>
+
+        <div class="card-footer">
+          <small class="text-muted">Kategorija: @Html.DisplayFor(modelItem => item.NazivKategorije)</small>
+        </div>
+       </div>
+    
+}
+@*</div>*@

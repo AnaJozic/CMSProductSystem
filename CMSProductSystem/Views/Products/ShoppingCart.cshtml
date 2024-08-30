@@ -1,0 +1,58 @@
+﻿@model List<AddToCartModel>
+
+<h1 class="alert alert-info">Vaša košarica</h1>
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table  tablicauserifont table-striped">
+        <tr class="lastrow">
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductId</td>
+                    <td>@item.ProductName</td>
+                    <td>@item.ProductQuantity</td>
+                    <td>@item.ProductPrice</td>
+                    <td>@(item.ProductQuantity * item.ProductPrice)</td>
+                    <td>
+                        <button class="btn btn-danger" onclick="removeFromCart('@item.ProductId')">Remove</button>
+                    </td>
+                </tr>
+            }
+            <tr class="lastrow">
+                <td colspan="3"></td>
+                <td>Total: </td>
+                <td colspan="3">@Model.Sum(item => item.ProductQuantity * item.ProductPrice)</td>
+            </tr>
+    </table>
+}
+else
+{
+    <p>Your shopping cart is currently empty.</p>
+}
+
+@section scripts{
+
+    <script>
+        function removeFromCart(productId) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("RemoveFromCart", "Products")',
+                data: { productId: productId },
+                success: function () {
+                    window.location.href = '@Url.Action("ShoppingCart", "Products")';
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+}       

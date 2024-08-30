@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@model IEnumerable<CMSProductSystem.Models.ProizvodiKategorije>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="text-center">
+@if (SignInManager.IsSignedIn(User))
+{
+    var user = await UserManager.FindByNameAsync(@User.Identity?.Name);
+        if (user.Aktivan == 0)
+        {
+            <p>Vaš račun nije još aktiviran!</p>
+        }
+    }
+</div>
+
+    <h1 class="alert alert-info">Prikaz 10 nasumičnih proizvoda u galeriji</h1>
+ @foreach (var item in Model) {
+
+      <div class="card">
+        <img src="/@item.ProizvodPodaci.Slika" class="card-img-top prikazproizvodi" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Naziv</h5>
+          <p class="card-text">@Html.DisplayFor(modelItem => item.ProizvodPodaci.Naziv)</p>
+        <h5 class="card-title">Opis proizvoda</h5>
+          <p class="card-text">@Html.DisplayFor(modelItem => item.ProizvodPodaci.Opis)</p>
+       <h5 class="card-title">Detalji</h5>
+      <p class="card-text"> => @Html.ActionLink("Pogledaj", "DetailsProizvod","Products", new {  id=item.ProizvodPodaci.ID  })</p>
+        </div>
+
+        <div class="card-footer">
+          <small class="text-muted">Kategorija: @Html.DisplayFor(modelItem => item.NazivKategorije)</small>
+        </div>
+       </div>
+    
+}

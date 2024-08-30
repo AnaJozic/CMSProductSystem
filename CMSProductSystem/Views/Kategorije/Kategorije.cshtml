@@ -1,0 +1,89 @@
+﻿@using System.Web
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@model IEnumerable<CMSProductSystem.Models.Kategorija>
+@{
+    ViewData["Title"] = "Popis Kategorija";
+    string klasa = "";
+}
+
+<h4 class="alert alert-info">Popis kategorija</h4>
+
+<p>
+    @if (TempData["poruka"] != null)
+    {
+        <p class="btn btn-success">@TempData["poruka"]</p>
+    }
+</p>
+
+<table class="table tablicauserifont table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Naziv)
+            </th>          
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Naziv)
+                </td>               
+                <td>                    
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        if (User.IsInRole("Administratori"))
+                        {
+                            @Html.ActionLink(HttpUtility.HtmlDecode("&#x270E; Ažuriraj"), "EditKategorija", new {  id=item.ID }, new {@class = "btn btn-primary btnakcija" })
+                            <text>&nbsp;</text>
+                              @Html.ActionLink(HttpUtility.HtmlDecode("&#x2715; Briši"), "DeleteKategorija", new {  id=item.ID }, new {@class = "btn btn-danger btnakcija" })
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<p><a href="CreateKategorija" class = "btn btn-warning btnprikaz">&#x2719; Nova kategorija</a></p>
+<div class="pagination">
+
+    @if(ViewBag.Aktivna != 1)
+    {
+        ViewBag.Prethodna = ViewBag.Aktivna - 1;
+        @Html.ActionLink(HttpUtility.HtmlDecode("&laquo;"), "Kategorije", new {  page=ViewBag.Prethodna }, new {@class=@klasa}) 
+    }
+      
+    @for (int str = 1; str <= @ViewBag.BrojStranica; str++)
+    {
+        if (ViewBag.Aktivna == str)
+        {
+            klasa = "active";
+        }
+        else
+        {
+            klasa = "";
+        }
+        ViewBag.Stranica = str;
+        @Html.ActionLink("  "+@str+"  ", "Kategorije", new {  page=str }, new {@class=@klasa})
+        @Html.Label(" ")
+        
+    }
+
+    
+
+    @if(ViewBag.Aktivna < ViewBag.Stranica)
+    {
+        ViewBag.Sljedeca = ViewBag.Aktivna + 1;
+        @Html.ActionLink(HttpUtility.HtmlDecode("&raquo;"), "Kategorije", new {  page=ViewBag.Sljedeca }, new {@class=@klasa}) 
+    }
+</div>
+

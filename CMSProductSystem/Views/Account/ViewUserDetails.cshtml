@@ -1,0 +1,107 @@
+﻿@using System.Web
+@model CMSProductSystem.Models.EditUserViewModel
+
+@{
+    ViewData["Title"] = "View User details";
+}
+<div class="container">
+    <div class="main-body">
+    
+          <!-- Breadcrumb -->
+          <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <p>Podaci o korisniku:</p>
+          </nav>
+          <!-- /Breadcrumb -->
+    
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                    <div class="mt-3">
+                      <h4>@Model.FirstName @Model.LastName</h4>
+                      <p class="text-secondary mb-1">@Model.Zanimanje</p>
+                      <p class="text-muted font-size-sm">@Model.Grad</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Korisničko ime</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      @Model.Email
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      @Model.Email
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Telefon</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      @Model.Telefon
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Adresa</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      @Model.Adresa
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Role</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                                @string.Join(", ",Model.PopisRola)
+                                <label class="infoporuka">Info: role za korisnika uređuju se pod linkom "Popis rola"</label>
+                            </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Aktivnost</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                                @if (Model.Aktivan == 1)
+                                {
+                                    <label class="btn btn-primary active btnprikaz">Aktivan</label>
+                                }
+                                else
+                                {
+                                    <label class="btn btn-primary disabled btnakcija">Nektivan</label>
+                                }
+                            </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      @Html.ActionLink(HttpUtility.HtmlDecode("&#x270E; Ažuriraj"), "EditUser", new {  id=Model.Id }, new {@class = "btn btn-primary btnakcija" })
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+    </div>
